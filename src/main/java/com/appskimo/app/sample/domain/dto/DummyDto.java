@@ -19,11 +19,14 @@ public class DummyDto implements Serializable {
     private static final long serialVersionUID = -2017403832441731481L;
 
     private String name;
+    private String phone;
 
     @JsonIgnore
     public Dummy getInstance() {
         Dummy dummy = new Dummy();
         dummy.setName(name);
+        dummy.setPhone(phone);
+
         return dummy;
     }
 

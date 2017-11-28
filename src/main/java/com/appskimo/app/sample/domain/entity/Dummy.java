@@ -34,6 +34,9 @@ public class Dummy implements Serializable {
     @Column(name = "`name`", length = 20, nullable = false)
     private String name;
 
+    @Column(name = "`phone`", length = 20, nullable = false)
+    private String phone;
+
     @Column(name = "`registTime`", nullable = false)
     private Date registTime;
 
