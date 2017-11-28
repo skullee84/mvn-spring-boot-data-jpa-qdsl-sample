@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -22,7 +23,13 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "`Dummy`")
+@Table(
+    name = "`Dummy`",
+    indexes = {
+        @Index(name = "idx_name", columnList = "name"),
+        @Index(name = "idx_phone", columnList = "phone", unique = true)
+    }
+)
 public class Dummy implements Serializable {
     private static final long serialVersionUID = -8614701049089239094L;
 
