@@ -32,7 +32,6 @@ public class ApiController {
     })
     @GetMapping("data")
     public Object data(Page page) {
-        System.out.println(page);
         return apiService.getDummies(page);
     }
 

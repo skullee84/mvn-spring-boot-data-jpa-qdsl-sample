@@ -6,10 +6,12 @@ import com.appskimo.app.sample.domain.entity.QDummy;
 import com.appskimo.app.sample.domain.repository.DummyRepository;
 import com.appskimo.app.sample.service.ApiService;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringPath;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import javax.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,13 @@ public class ApiServiceImpl implements ApiService {
 
     private BooleanBuilder generateCondition(Map<String, Object> q) {
         BooleanBuilder builder = new BooleanBuilder();
-        if(Objects.nonNull(q) && Objects.nonNull(q.get("name"))) {
-            builder.and(qDummy.name.eq(q.get("name").toString()));
-        }
+        Optional.ofNullable(q).ifPresent(query ->
+            query.forEach((k, v) -> Optional.ofNullable(v).ifPresent(value -> {
+                StringPath stringPath = Expressions.stringPath(qDummy, k);
+                builder.and(stringPath.eq(v.toString()));
+            }))
+        );
+
         return builder;
     }
 
