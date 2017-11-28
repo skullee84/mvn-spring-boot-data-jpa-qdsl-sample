@@ -2,7 +2,6 @@ server:
   tomcat:
     uri-encoding: UTF-8
   port: 18080
-  context-path: /api
 
 spring:
   http:
